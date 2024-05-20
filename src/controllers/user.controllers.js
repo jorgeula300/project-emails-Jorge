@@ -101,6 +101,14 @@ const resetPassword = catchError(async(req, res) => {
         code,
         userId: user.id
     })
+    await sendEmail({
+        to: email,
+        subject: "REGISTRO",
+        html: `<h1>Bienvenido ${firstName} ${lastName}</h1>
+        <p>Para modificar tu contraseña</p>
+        <a href="${verifyUrl}">${verifyUrl}</a>
+        `
+    })
     return res.json({message: "Email sent",
         verifyUrl
     });
